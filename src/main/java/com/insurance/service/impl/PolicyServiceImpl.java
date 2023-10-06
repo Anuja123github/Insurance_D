@@ -12,9 +12,15 @@ public class PolicyServiceImpl implements PolicyService {
 
 	@Autowired
 	private PolicyRepository policyRepository;
-	
+
 	@Override
 	public Policy savePolicy(Policy policy) {
+		Policy newPolicy = policyRepository.save(policy);
+		return newPolicy;
+	}
+
+	@Override
+	public Policy updatePolicyDetails(Policy policy) {
 		Policy newPolicy = policyRepository.save(policy);
 		return newPolicy;
 	}
