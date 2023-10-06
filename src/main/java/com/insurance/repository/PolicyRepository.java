@@ -7,5 +7,7 @@ import com.insurance.model.Policy;
 
 @Repository
 public interface PolicyRepository extends JpaRepository<Policy, Integer> {
+	
+	public Policy getPolicyById (Integer id);
 
 }

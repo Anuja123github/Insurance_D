@@ -25,4 +25,12 @@ public class PolicyServiceImpl implements PolicyService {
 		return newPolicy;
 	}
 
+	
+	@Override
+	public Policy getPolicyById(Integer id) {
+		
+		Policy policy = policyRepository.getPolicyById(id);
+		return policy;
+	}
+
 }
