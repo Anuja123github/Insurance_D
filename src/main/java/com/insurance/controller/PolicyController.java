@@ -49,4 +49,5 @@ public class PolicyController {
 		policyService.deletePolicy(id);
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Record is deleted."));
 	}
+
 }
