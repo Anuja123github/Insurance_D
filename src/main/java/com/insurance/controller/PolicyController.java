@@ -29,4 +29,5 @@ public class PolicyController {
 		Policy newPolicy = policyService.updatePolicyDetails(Policy);
 		return ResponseEntity.status(HttpStatus.OK).body(newPolicy);
 	}
+
 }
