@@ -1,5 +1,6 @@
 package com.insurance.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,11 @@ public class PolicyServiceImpl implements PolicyService {
 			throw new ResourceNotFoundException("No Policy found with id: " + id);
 		}
 	}
+
+	@Override
+	public List<Policy> getAllPolicyInformation() {
+			List<Policy> policy=policyRepository.findAll();
+			return policy;
+
+}
 }

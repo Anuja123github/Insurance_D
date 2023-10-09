@@ -1,5 +1,7 @@
 package com.insurance.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +50,13 @@ public class PolicyController {
 		// CR-686
 		policyService.deletePolicy(id);
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Record is deleted."));
+	}
+
+	@GetMapping("/policy")
+	public List<Policy> getAllPolicyInformation() {
+		// CR-666
+		List<Policy> policy = policyService.getAllPolicyInformation();
+		return policy;
 	}
 
 }
