@@ -26,19 +26,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public List<UserDetails> getAllUsers(int pageNo, int pageSize) {
-		
+
 		Pageable pageable = PageRequest.of(pageNo, pageSize);
 		Page<UserDetails> usersPage = userDetailsRepository.findAll(pageable);
 		if (usersPage.hasContent()) {
 			return usersPage.getContent();
 		}
 		return new ArrayList<>();
-	}
-
-	@Override
-	public UserDetails getUserById(Integer id) {
-		UserDetails user=userDetailsRepository.findById(id).get();
-		return user;
 	}
 
 }
