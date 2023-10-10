@@ -35,4 +35,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new ArrayList<>();
 	}
 
+	@Override
+	public UserDetails getUserById(Integer id) {
+		UserDetails user=userDetailsRepository.findById(id).get();
+		return user;
+	}
+
 }

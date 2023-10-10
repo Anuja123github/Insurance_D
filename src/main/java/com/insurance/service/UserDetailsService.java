@@ -9,4 +9,6 @@ public interface UserDetailsService {
 	public UserDetails addUserDetails(UserDetails userDetails);
 	
 	public List<UserDetails> getAllUsers(int pageNo, int pageSize);
+	
+	public UserDetails getUserById(Integer id);
 }
