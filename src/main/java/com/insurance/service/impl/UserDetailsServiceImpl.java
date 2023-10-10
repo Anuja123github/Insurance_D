@@ -54,4 +54,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	}
 
+	@Override
+	public UserDetails getUserById(Integer id) {
+		UserDetails userDetails = userDetailsRepository.findUserById(id);
+		if (userDetails == null)
+			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
+		return userDetails;
+	}
+
 }

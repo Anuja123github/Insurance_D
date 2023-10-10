@@ -13,4 +13,6 @@ public interface UserDetailsService {
 	public UserDetails updateUser(UserDetails userDetails);
 
 	public void deleteUserDetails(int id);
+
+	public UserDetails getUserById(Integer id);
 }
