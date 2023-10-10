@@ -38,6 +38,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	@Override
+
+	public UserDetails getUserById(Integer id) {
+		UserDetails user=userDetailsRepository.findById(id).get();
+		return user;
+	}
+
+
 	public UserDetails updateUser(UserDetails userDetails) {
 		UserDetails user = userDetailsRepository.save(userDetails);
 		return user;
@@ -53,5 +60,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 
 	}
+
 
 }
