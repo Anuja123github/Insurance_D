@@ -35,4 +35,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new ArrayList<>();
 	}
 
+	@Override
+	public UserDetails updateUser(UserDetails userDetails) {
+		UserDetails user = userDetailsRepository.save(userDetails);
+		return user;
+	}
+
 }
