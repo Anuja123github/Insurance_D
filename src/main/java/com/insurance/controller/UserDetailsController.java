@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
+import com.insurance.exception.ResourceNotFoundException;
 import com.insurance.model.UserDetails;
 import com.insurance.service.UserDetailsService;
 
