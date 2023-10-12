@@ -1,5 +1,7 @@
 package com.insurance.service;
 
+import java.util.Optional;
+
 import com.insurance.model.Claim;
 
 public interface ClaimService {
