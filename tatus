@@ -1,0 +1,28 @@
+[33m1108722[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #9 from Anuja123github/anuja
+[33m338124c[m[33m ([m[1;31morigin/anuja[m[33m)[m added get user details 2
+[33md6229e4[m added changes
+[33mabbaa82[m Merge pull request #8 from Anuja123github/anuja
+[33mc3bfe3f[m Merge branch 'main' into anuja
+[33mb79c544[m added get user using id
+[33m00bc9bd[m Merge pull request #7 from Anuja123github/aakash
+[33me5964ec[m[33m ([m[1;31morigin/aakash[m[33m)[m added delete userdetails api functionality
+[33m09e0d59[m The updateUser funtionality added successfully
+[33mdd3e598[m Merge pull request #6 from Anuja123github/anand
+[33m1f87e4d[m[33m ([m[1;31morigin/anand[m[33m)[m added get all user details functionality
+[33me12aca8[m Merge pull request #5 from Anuja123github/updatepolicy
+[33m2bc28e1[m[33m ([m[1;31morigin/updatepolicy[m[33m)[m added  add userdetails api successfully
+[33m63ea5e0[m Merge pull request #4 from Anuja123github/anuja
+[33mab781ad[m added get all policy
+[33me4b6d91[m added changes
+[33mb31d611[m added reslove conflit
+[33mcf5a15c[m added reslove conflit
+[33m1c9eaa1[m added get policy functility
+[33m3da2b6d[m added delete functionality
+[33m8de24e3[m added delete functionality
+[33m81e82d3[m user get by id funtionality added
+[33mb634b23[m Merge pull request #2 from Anuja123github/updatepolicy
+[33m405e86c[m added update policy api successfully
+[33m3ac480f[m Merge pull request #1 from Anuja123github/addpolicy
+[33md9dd330[m[33m ([m[1;31morigin/addpolicy[m[33m)[m added policy save functionality
+[33m732417b[m added model class
+[33m6f25f2f[m added Insurance Project

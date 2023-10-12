@@ -41,6 +41,13 @@ public class UserDetailsController {
 		return ResponseEntity.status(HttpStatus.OK).body(userDetailsList);
 	}
 
+//CR743
+	@GetMapping("/userDetails/{id}")
+	public ResponseEntity<UserDetails> getUserById(@PathVariable("id") Integer id) {
+		UserDetails user = userDetailsService.getUserById(id);
+		return ResponseEntity.ok().body(user);
+	}
+
 	@PutMapping("/userUpdate")
 	public UserDetails updateUser(@RequestBody UserDetails userDetails) {
 		UserDetails user = userDetailsService.updateUser(userDetails);
