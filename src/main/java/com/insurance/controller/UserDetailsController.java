@@ -63,4 +63,16 @@ public class UserDetailsController {
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Record deleted successfully"));
 	}
 
+	@GetMapping("/updateUserDetailsPasswordById")
+	public ResponseEntity<ApiResponseDto> updatePasswordById(@RequestParam("id") Integer id,
+			@RequestParam("password") String password) {
+		UserDetails userDetails = userDetailsService.getUserById(id);
+		if (userDetails != null) {
+			userDetails.setPassword(password);
+			userDetailsService.updateUser(userDetails);
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Password updated successfully"));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Record not found for Id: " + id));
+	}
+
 }

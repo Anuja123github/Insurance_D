@@ -16,4 +16,8 @@ public interface UserDetailsService {
 
 	public void deleteUserDetails(int id);
 
+<<<<<<< HEAD
+	public UserDetails getUserById(Integer id);
+=======
+>>>>>>> 1b4bb1ca3674c6a049e6361b7ccb408a8ce88c96
 }
