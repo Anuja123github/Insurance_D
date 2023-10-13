@@ -12,4 +12,6 @@ public interface ClaimService {
 
 	public List<Claim> getAllClaimsList();
 
+	public List<Claim> saveAllClaims(List<Claim> claimlist);
+
 }

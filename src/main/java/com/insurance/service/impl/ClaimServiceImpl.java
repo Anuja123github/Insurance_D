@@ -40,4 +40,11 @@ public class ClaimServiceImpl implements ClaimService {
 		List<Claim> claimList = claimRepository.findAll();
 		return claimList;
 	}
+
+	@Override
+	public List<Claim> saveAllClaims(List<Claim> claimlist) {
+		List<Claim> claimList1 = claimRepository.saveAll(claimlist);
+		return claimList1;
+
+	}
 }
