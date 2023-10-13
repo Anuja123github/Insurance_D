@@ -10,9 +10,6 @@ import com.insurance.model.UserDetails;
 @Repository
 public interface UserDetailsRepository extends JpaRepository<UserDetails, Serializable> {
 
-<<<<<<< HEAD
-	public UserDetails findUserDetailsById(Integer id);
-=======
-	public UserDetails findUserById(Integer id);
->>>>>>> main
+	UserDetails findUserDetailsById(Integer id);
+
 }

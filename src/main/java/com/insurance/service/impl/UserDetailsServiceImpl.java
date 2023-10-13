@@ -37,13 +37,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new ArrayList<>();
 	}
 
-	@Override
-
-	public UserDetails getUserById(Integer id) {
-		UserDetails user = userDetailsRepository.findById(id).get();
-		return user;
-	}
-
 	public UserDetails updateUser(UserDetails userDetails) {
 		UserDetails user = userDetailsRepository.save(userDetails);
 		return user;
@@ -61,11 +54,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails getUserById(Integer id) {
-		UserDetails userDetails = userDetailsRepository.findUserById(id);
-		if (userDetails == null)
+	public UserDetails updateUserPasswordById(Integer id, String password) {
+		UserDetails userDetails = userDetailsRepository.findUserDetailsById(id);
+		if (userDetails != null) {
+			userDetails.setPassword(password);
+			UserDetails userDetails1 = userDetailsRepository.save(userDetails);
+			return userDetails1;
+		} else
 			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
-		return userDetails;
+
 	}
 
+	@Override
+	public UserDetails getUserById(Integer id) {
+		UserDetails userDetails = userDetailsRepository.findUserDetailsById(id);
+		return userDetails;
+	}
 }
