@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
+import com.insurance.exception.ResourceNotFoundException;
 import com.insurance.model.UserDetails;
 import com.insurance.service.UserDetailsService;
 
@@ -60,6 +61,16 @@ public class UserDetailsController {
 		// CR-744
 		userDetailsService.deleteUserDetails(id);
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Record deleted successfully"));
+	}
+
+	@GetMapping("/updateUserPasswordById")
+	public ResponseEntity<ApiResponseDto> updateUserPasswordById(@RequestParam("id") Integer id,
+			@RequestParam("password") String password) {
+		UserDetails userDetails = userDetailsService.updateUserPasswordById(id, password);
+		if (userDetails != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Password updated successfully"));
+		} else
+			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
 	}
 
 }

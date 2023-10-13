@@ -10,10 +10,12 @@ public interface UserDetailsService {
 
 	public List<UserDetails> getAllUsers(int pageNo, int pageSize);
 
-	public UserDetails getUserById(Integer id);
-
 	public UserDetails updateUser(UserDetails userDetails);
 
 	public void deleteUserDetails(int id);
+
+	public UserDetails updateUserPasswordById(Integer id, String password);
+
+	public UserDetails getUserById(Integer id);
 
 }
