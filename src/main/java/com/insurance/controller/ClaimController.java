@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
+import com.insurance.exception.ResourceNotFoundException;
 import com.insurance.model.Claim;
 import com.insurance.model.Policy;
 import com.insurance.service.ClaimService;
@@ -61,4 +62,19 @@ public class ClaimController {
 		return null;
 	}
 
+	@PostMapping("/policy/id/claims/{id}")
+	public ResponseEntity<List<Claim>> addClaimDetailsForPolicy(@PathVariable("id") Integer id,
+			@RequestBody List<Claim> claimlist) {
+		// CR-784
+		Policy policy = policyService.getPolicyById(id);
+		if (policy == null) {
+			throw new ResourceNotFoundException("No Policy found with id: " + id);
+		} else {
+			for (Claim claim : claimlist) {
+				claim.setPolicyId(policy.getId());
+			}
+			List<Claim> claimList1 = claimService.saveAllClaims(claimlist);
+			return ResponseEntity.status(HttpStatus.OK).body(claimList1);
+		}
+	}
 }
