@@ -23,6 +23,8 @@ public class Policy {
 	private String status;
 	@OneToMany(mappedBy = "policyId")
 	private List<Claim> claimlist;
+	@OneToMany(mappedBy = "policyId")
+	private List<PremiumDetails> premiumDetailsList;
 
 	public int getId() {
 		return id;
@@ -80,14 +82,12 @@ public class Policy {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Policy [id=" + id + ", policynumber=" + policynumber + ", premiumamount=" + premiumamount + ", name="
-				+ name + ", email=" + email + ", claimnumber=" + claimnumber + ", status=" + status + ", getId()="
-				+ getId() + ", getPolicynumber()=" + getPolicynumber() + ", getPremiumamount()=" + getPremiumamount()
-				+ ", getName()=" + getName() + ", getEmail()=" + getEmail() + ", getClaimnumber()=" + getClaimnumber()
-				+ ", getStatus()=" + getStatus() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+	public List<PremiumDetails> getPremiumDetailsList() {
+		return premiumDetailsList;
+	}
+
+	public void setPremiumDetailsList(List<PremiumDetails> premiumDetailsList) {
+		this.premiumDetailsList = premiumDetailsList;
 	}
 
 	public List<Claim> getClaimlist() {
@@ -96,6 +96,18 @@ public class Policy {
 
 	public void setClaimlist(List<Claim> claimlist) {
 		this.claimlist = claimlist;
+	}
+
+	@Override
+	public String toString() {
+		return "Policy [id=" + id + ", policynumber=" + policynumber + ", premiumamount=" + premiumamount + ", name="
+				+ name + ", email=" + email + ", claimnumber=" + claimnumber + ", status=" + status + ", claimlist="
+				+ claimlist + ", premiumDetailsList=" + premiumDetailsList + ", getId()=" + getId()
+				+ ", getPolicynumber()=" + getPolicynumber() + ", getPremiumamount()=" + getPremiumamount()
+				+ ", getName()=" + getName() + ", getEmail()=" + getEmail() + ", getClaimnumber()=" + getClaimnumber()
+				+ ", getStatus()=" + getStatus() + ", getPremiumDetailsList()=" + getPremiumDetailsList()
+				+ ", getClaimlist()=" + getClaimlist() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
 
 }
