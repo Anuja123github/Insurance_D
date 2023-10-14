@@ -15,13 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
 import com.insurance.model.Policy;
+import com.insurance.model.PremiumDetails;
 import com.insurance.service.PolicyService;
+import com.insurance.service.PremiumDetailsService;
 
 @RestController
 public class PolicyController {
 
 	@Autowired
 	private PolicyService policyService;
+
+	@Autowired
+	private PremiumDetailsService premiumDetailsService;
 
 	@PostMapping("/policy")
 	public ResponseEntity<Policy> addPolicy(@RequestBody Policy policy) {
@@ -57,6 +62,18 @@ public class PolicyController {
 		// CR-666
 		List<Policy> policy = policyService.getAllPolicyInformation();
 		return policy;
+	}
+
+	@PostMapping("/savePolicyPremiumDetails")
+	public ResponseEntity<Policy> savePolicyPremiumDetails(@RequestBody Policy policy) {
+		Policy policy1 = policyService.savePolicy(policy);
+		List<PremiumDetails> premiumDetailsList = policy.getPremiumDetailsList();
+		for (PremiumDetails premiumDetails : premiumDetailsList) {
+			premiumDetails.setPolicyId(policy.getId());
+			premiumDetailsService.addPremium(premiumDetails);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(policy1);
+
 	}
 
 }
