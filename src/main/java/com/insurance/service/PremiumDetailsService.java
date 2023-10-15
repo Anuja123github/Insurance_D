@@ -9,4 +9,6 @@ public interface PremiumDetailsService {
 	public PremiumDetails addPremium(PremiumDetails premiumDetails);
 	
 	public List<PremiumDetails> getAllPremiumDetails();
+	
+    public void deletePreimium (Integer id);
 }

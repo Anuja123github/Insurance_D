@@ -27,4 +27,12 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 		return premiumDetailsList;
 	}
 
+	@Override
+	public void deletePreimium(Integer id) {
+		premiumDetailsRepository.deleteById(id);
+		
+	}
+
+	
+
 }
