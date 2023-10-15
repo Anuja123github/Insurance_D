@@ -37,4 +37,10 @@ public class PremiumDetailsController {
 		}
 		throw new ResourceNotFoundException("No Policy found with id: " + id);
 	}
+	
+	public ResponseEntity<List<PremiumDetails>> getAllPremiumDetails() {
+		// CR-787
+		List<PremiumDetails> premiumDetailsList = premiumDetailsService.getAllPremiumDetails();
+		return ResponseEntity.status(HttpStatus.OK).body(premiumDetailsList);
+	}
 }

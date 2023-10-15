@@ -57,9 +57,14 @@ public class ClaimController {
 	
 	@PutMapping("/updatePolicyClaim")
 	public ResponseEntity<Policy> updatePolicyClaims(@RequestBody Policy policy) {
-		
-		
-		return null;
+		// CR-771
+		Policy updatedPolicy = policyService.updatePolicyDetails(policy);
+		List<Claim> claims = policy.getClaimlist();
+		for (Claim claim : claims) {
+			claim.setPolicyId(updatedPolicy.getId());
+			claimService.updateClaim(claim);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(updatedPolicy);
 	}
 
 	@PostMapping("/policy/id/claims/{id}")
