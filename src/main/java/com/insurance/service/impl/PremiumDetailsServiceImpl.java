@@ -19,4 +19,10 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 		return premiumDetails1;
 	}
 
+	@Override
+	public PremiumDetails updatePremium(PremiumDetails premiumDetails) {
+		PremiumDetails premiumDetails1=premiumDetailsRepository.save(premiumDetails);
+		return premiumDetails1;
+	}
+
 }

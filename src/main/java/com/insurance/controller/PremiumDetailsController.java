@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +37,32 @@ public class PremiumDetailsController {
 			return ResponseEntity.status(HttpStatus.OK).body(premiumDetails1);
 		}
 		throw new ResourceNotFoundException("No Policy found with id: " + id);
+	}
+	//CR786
+	@PutMapping("/updateData")
+	public ResponseEntity<Policy> updatePolicyDetails(@RequestBody Policy policy) {
+		Policy policy1=policyService.savePolicy(policy);
+		List<PremiumDetails> premiumDetailsList=policy.getPremiumDetailsList();
+		for(PremiumDetails premiumDetails:premiumDetailsList) {
+			premiumDetails.setPolicyId(policy.getId());
+			premiumDetailsService.updatePremium(premiumDetails);
+		}
+		return ResponseEntity.ok().body(policy1);
+		
+		
+		
+		
+		
+		
+		
+	
+	
+		
+		
+		
+		
+		
+	
+		
 	}
 }
