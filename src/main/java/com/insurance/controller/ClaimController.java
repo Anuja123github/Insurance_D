@@ -3,11 +3,14 @@ package com.insurance.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +33,17 @@ public class ClaimController {
 	private PolicyService policyService;
 
 	@PostMapping("/saveClaim")
+
+	public ResponseEntity<Policy> savePolicy(@RequestBody Policy policy) {
+		Policy policy1=policyService.savePolicy(policy);
+		List<Claim>claims=policy.getClaimlist();
+		for(Claim claim:claims ) {
+			claim.setPolicyId(policy.getId());
+			claimService.saveClaim(claim);
+		}
+		return ResponseEntity.ok().body(policy1);
+		
+
 	public Policy savePolicy(@RequestBody Policy policy) {
 		Policy policy1 = policyService.savePolicy(policy);
 		List<Claim> claims = policy.getClaimlist();
@@ -38,6 +52,7 @@ public class ClaimController {
 			claimService.saveClaim(claim);
 		}
 		return policy1;
+
 
 	}
 
