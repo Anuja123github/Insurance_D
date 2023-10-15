@@ -15,7 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
 import com.insurance.model.Policy;
+import com.insurance.model.PremiumDetails;
 import com.insurance.service.PolicyService;
+import com.insurance.service.PremiumDetailsService;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 public class PolicyController {
@@ -23,7 +29,15 @@ public class PolicyController {
 	@Autowired
 	private PolicyService policyService;
 
+	@Autowired
+	private PremiumDetailsService premiumDetailsService;
+
 	@PostMapping("/policy")
+	@ApiOperation(value = "Request to save Policy which includes Claim list and Premium Details List")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created"), 
+			@ApiResponse(code = 400, message = "Invalid Request"),
+			@ApiResponse(code = 500, message = "Internal Error")
+	})
 	public ResponseEntity<Policy> addPolicy(@RequestBody Policy policy) {
 		// CR-672
 		Policy newPolicy = policyService.savePolicy(policy);
@@ -46,6 +60,11 @@ public class PolicyController {
 	}
 
 	@DeleteMapping("/policy/{id}")
+	@ApiOperation(value = "Request to delete Policy")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), 
+			@ApiResponse(code = 404, message = "Resource not found"),
+			@ApiResponse(code = 500, message = "Internal Error")
+	})
 	public ResponseEntity<ApiResponseDto> removePolicy(@PathVariable("id") Integer id) {
 		// CR-686
 		policyService.deletePolicy(id);
@@ -57,6 +76,18 @@ public class PolicyController {
 		// CR-666
 		List<Policy> policy = policyService.getAllPolicyInformation();
 		return policy;
+	}
+
+	@PostMapping("/savePolicyPremiumDetails")
+	public ResponseEntity<Policy> savePolicyPremiumDetails(@RequestBody Policy policy) {
+		Policy policy1 = policyService.savePolicy(policy);
+		List<PremiumDetails> premiumDetailsList = policy.getPremiumDetailsList();
+		for (PremiumDetails premiumDetails : premiumDetailsList) {
+			premiumDetails.setPolicyId(policy.getId());
+			premiumDetailsService.addPremium(premiumDetails);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(policy1);
+
 	}
 
 }
