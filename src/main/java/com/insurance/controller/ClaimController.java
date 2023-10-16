@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +22,10 @@ import com.insurance.model.Policy;
 import com.insurance.service.ClaimService;
 import com.insurance.service.PolicyService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 public class ClaimController {
 
@@ -33,8 +36,9 @@ public class ClaimController {
 	private PolicyService policyService;
 
 	@PostMapping("/saveClaim")
-
-	public ResponseEntity<Policy> savePolicy(@RequestBody Policy policy) {
+	@ApiOperation(value = "Request to save claim in policy")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "created"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
+	public ResponseEntity<Policy> saveClaimPolicy(@RequestBody Policy policy) {
 		Policy policy1 = policyService.savePolicy(policy);
 		List<Claim> claims = policy.getClaimlist();
 		for (Claim claim : claims) {
@@ -46,6 +50,8 @@ public class ClaimController {
 	}
 
 	@DeleteMapping("/delete/{id}")
+	@ApiOperation(value = "Request to delete claim  by using id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<ApiResponseDto> deleteClaim(@PathVariable("id") Integer id) {
 
 		claimService.deleteClaimById(id);
@@ -53,6 +59,8 @@ public class ClaimController {
 	}
 
 	@GetMapping("/get-all-claim-list")
+	@ApiOperation(value = "Request to update claim")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<List<Claim>> getClaimList() {
 		// CR-772
 		List<Claim> claimList = claimService.getAllClaimsList();
@@ -60,6 +68,8 @@ public class ClaimController {
 	}
 
 	@PutMapping("/updatePolicyClaim")
+	@ApiOperation(value = "Request to update policy-claim")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<Policy> updatePolicyClaims(@RequestBody Policy policy) {
 		// CR-771
 		Policy updatedPolicy = policyService.updatePolicyDetails(policy);
@@ -72,6 +82,8 @@ public class ClaimController {
 	}
 
 	@PostMapping("/policy/id/claims/{id}")
+	@ApiOperation(value = "Request to save claim to policy by using policy id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<List<Claim>> addClaimDetailsForPolicy(@PathVariable("id") Integer id,
 			@RequestBody List<Claim> claimlist) {
 		// CR-784

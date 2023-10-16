@@ -19,6 +19,10 @@ import com.insurance.exception.ResourceNotFoundException;
 import com.insurance.model.UserDetails;
 import com.insurance.service.UserDetailsService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 public class UserDetailsController {
 
@@ -26,6 +30,8 @@ public class UserDetailsController {
 	private UserDetailsService userDetailsService;
 
 	@PostMapping("/userDetails")
+	@ApiOperation(value = "Request to save user details")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<UserDetails> addUserDetails(@RequestBody UserDetails userDetails) {
 		// CR-740
 		UserDetails newuserDetails = userDetailsService.addUserDetails(userDetails);
@@ -33,6 +39,8 @@ public class UserDetailsController {
 	}
 
 	@GetMapping("/userDetails")
+	@ApiOperation(value = "Request to get all user details ")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<List<UserDetails>> getAllUserDetails(
 			@RequestParam(defaultValue = "1", name = "page") int pageNo,
 			@RequestParam(defaultValue = "15", name = "records") int pageSize) {
@@ -42,21 +50,27 @@ public class UserDetailsController {
 		return ResponseEntity.status(HttpStatus.OK).body(userDetailsList);
 	}
 
-//CR743
+
 	@GetMapping("/userDetails/{id}")
+	@ApiOperation(value = "Request to get user details using id ")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<UserDetails> getUserById(@PathVariable("id") Integer id) {
+		//CR743
 		UserDetails user = userDetailsService.getUserById(id);
 		return ResponseEntity.ok().body(user);
 	}
 
 	@PutMapping("/userUpdate")
+	@ApiOperation(value = "Request to update user details")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public UserDetails updateUser(@RequestBody UserDetails userDetails) {
 		UserDetails user = userDetailsService.updateUser(userDetails);
 		return user;
-
 	}
 
 	@DeleteMapping("/userDetails/{id}")
+	@ApiOperation(value = "Request to delete user details by using id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<ApiResponseDto> deleteUserDetails(@PathVariable("id") int id) {
 		// CR-744
 		userDetailsService.deleteUserDetails(id);
@@ -64,6 +78,8 @@ public class UserDetailsController {
 	}
 
 	@GetMapping("/updateUserPasswordById")
+	@ApiOperation(value = "Request to update user details password by using id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<ApiResponseDto> updateUserPasswordById(@RequestParam("id") Integer id,
 			@RequestParam("password") String password) {
 		UserDetails userDetails = userDetailsService.updateUserPasswordById(id, password);
@@ -72,10 +88,14 @@ public class UserDetailsController {
 		} else
 			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
 	}
+
 	@GetMapping("/searchByNameAndEmail")
-	public List<UserDetails> findByFirstNameAndLastNameAndEmail(@RequestParam ("firstname")String firstname,
-			@RequestParam("lastname")String lastname, @RequestParam("email") String email){
-		List<UserDetails> searchDetails = userDetailsService.findByFirstnameAndLastnameAndEmail(firstname, lastname, email);
+	@ApiOperation(value = "Request to get user details by using firstname,lastname AND email")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
+	public List<UserDetails> findByFirstNameAndLastNameAndEmail(@RequestParam("firstname") String firstname,
+			@RequestParam("lastname") String lastname, @RequestParam("email") String email) {
+		List<UserDetails> searchDetails = userDetailsService.findByFirstnameAndLastnameAndEmail(firstname, lastname,
+				email);
 		return searchDetails;
 	}
 
