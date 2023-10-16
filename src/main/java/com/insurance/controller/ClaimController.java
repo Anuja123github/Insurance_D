@@ -35,25 +35,13 @@ public class ClaimController {
 	@PostMapping("/saveClaim")
 
 	public ResponseEntity<Policy> savePolicy(@RequestBody Policy policy) {
-		Policy policy1=policyService.savePolicy(policy);
-		List<Claim>claims=policy.getClaimlist();
-		for(Claim claim:claims ) {
-			claim.setPolicyId(policy.getId());
-			claimService.saveClaim(claim);
-		}
-		return ResponseEntity.ok().body(policy1);
-		
-
-	public Policy savePolicy(@RequestBody Policy policy) {
 		Policy policy1 = policyService.savePolicy(policy);
 		List<Claim> claims = policy.getClaimlist();
 		for (Claim claim : claims) {
 			claim.setPolicyId(policy.getId());
 			claimService.saveClaim(claim);
 		}
-		return policy1;
-
-
+		return ResponseEntity.ok().body(policy1);
 	}
 
 	@DeleteMapping("/delete/{id}")
@@ -69,7 +57,7 @@ public class ClaimController {
 		List<Claim> claimList = claimService.getAllClaimsList();
 		return ResponseEntity.status(HttpStatus.OK).body(claimList);
 	}
-	
+
 	@PutMapping("/updatePolicyClaim")
 	public ResponseEntity<Policy> updatePolicyClaims(@RequestBody Policy policy) {
 		// CR-771
