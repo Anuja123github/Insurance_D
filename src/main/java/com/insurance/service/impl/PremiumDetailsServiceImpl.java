@@ -1,5 +1,7 @@
 package com.insurance.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,19 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 
 	@Override
 	public PremiumDetails updatePremium(PremiumDetails premiumDetails) {
-		PremiumDetails premiumDetails1=premiumDetailsRepository.save(premiumDetails);
+		PremiumDetails premiumDetails1 = premiumDetailsRepository.save(premiumDetails);
 		return premiumDetails1;
+	}
+
+	public List<PremiumDetails> getAllPremiumDetails() {
+		List<PremiumDetails> premiumDetailsList = premiumDetailsRepository.findAll();
+		return premiumDetailsList;
+	}
+
+	@Override
+	public void deletePreimium(Integer id) {
+		premiumDetailsRepository.deleteById(id);
+
 	}
 
 }

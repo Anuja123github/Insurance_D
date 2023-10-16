@@ -19,6 +19,10 @@ import com.insurance.model.PremiumDetails;
 import com.insurance.service.PolicyService;
 import com.insurance.service.PremiumDetailsService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 public class PolicyController {
 
@@ -29,6 +33,11 @@ public class PolicyController {
 	private PremiumDetailsService premiumDetailsService;
 
 	@PostMapping("/policy")
+	@ApiOperation(value = "Request to save Policy which includes Claim list and Premium Details List")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created"), 
+			@ApiResponse(code = 400, message = "Invalid Request"),
+			@ApiResponse(code = 500, message = "Internal Error")
+	})
 	public ResponseEntity<Policy> addPolicy(@RequestBody Policy policy) {
 		// CR-672
 		Policy newPolicy = policyService.savePolicy(policy);
@@ -51,6 +60,11 @@ public class PolicyController {
 	}
 
 	@DeleteMapping("/policy/{id}")
+	@ApiOperation(value = "Request to delete Policy")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), 
+			@ApiResponse(code = 404, message = "Resource not found"),
+			@ApiResponse(code = 500, message = "Internal Error")
+	})
 	public ResponseEntity<ApiResponseDto> removePolicy(@PathVariable("id") Integer id) {
 		// CR-686
 		policyService.deletePolicy(id);

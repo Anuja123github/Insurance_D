@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -41,6 +42,7 @@ public class PremiumDetailsController {
 
 	// CR786
 	@PutMapping("/updatePremiumDetails")
+
 	public ResponseEntity<Policy> updatePremiumDetails(@RequestBody Policy policy) {
 		Policy policy1 = policyService.updatePolicyDetails(policy);
 		List<PremiumDetails> premiumDetailsList = policy.getPremiumDetailsList();
@@ -51,4 +53,15 @@ public class PremiumDetailsController {
 		return ResponseEntity.ok().body(policy1);
 
 	}
+
+	public ResponseEntity<List<PremiumDetails>> getAllPremiumDetails() {
+		// CR-787
+		List<PremiumDetails> premiumDetailsList = premiumDetailsService.getAllPremiumDetails();
+		return ResponseEntity.status(HttpStatus.OK).body(premiumDetailsList);
+	}
+
+	@DeleteMapping("deletePriemium/{id}")
+    public void deletePremium (@PathVariable ("id") Integer id) {
+    	premiumDetailsService.deletePreimium(id);
+    }
 }

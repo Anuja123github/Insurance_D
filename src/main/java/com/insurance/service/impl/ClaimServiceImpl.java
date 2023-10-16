@@ -13,7 +13,8 @@ import com.insurance.service.ClaimService;
 
 @Service
 public class ClaimServiceImpl implements ClaimService {
-//inject repository
+
+	//inject repository
 	@Autowired
 	private ClaimRepository claimRepository;
 
@@ -46,5 +47,11 @@ public class ClaimServiceImpl implements ClaimService {
 		List<Claim> claimList1 = claimRepository.saveAll(claimlist);
 		return claimList1;
 
+	}
+
+	@Override
+	public Claim updateClaim(Claim claim) {
+		Claim updatedClaim = claimRepository.save(claim);
+		return updatedClaim;
 	}
 }
