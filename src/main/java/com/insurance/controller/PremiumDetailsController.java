@@ -38,31 +38,17 @@ public class PremiumDetailsController {
 		}
 		throw new ResourceNotFoundException("No Policy found with id: " + id);
 	}
-	//CR786
-	@PutMapping("/updateData")
-	public ResponseEntity<Policy> updatePolicyDetails(@RequestBody Policy policy) {
-		Policy policy1=policyService.savePolicy(policy);
-		List<PremiumDetails> premiumDetailsList=policy.getPremiumDetailsList();
-		for(PremiumDetails premiumDetails:premiumDetailsList) {
+
+	// CR786
+	@PutMapping("/updatePremiumDetails")
+	public ResponseEntity<Policy> updatePremiumDetails(@RequestBody Policy policy) {
+		Policy policy1 = policyService.updatePolicyDetails(policy);
+		List<PremiumDetails> premiumDetailsList = policy.getPremiumDetailsList();
+		for (PremiumDetails premiumDetails : premiumDetailsList) {
 			premiumDetails.setPolicyId(policy.getId());
 			premiumDetailsService.updatePremium(premiumDetails);
 		}
 		return ResponseEntity.ok().body(policy1);
-		
-		
-		
-		
-		
-		
-		
-	
-	
-		
-		
-		
-		
-		
-	
-		
+
 	}
 }
