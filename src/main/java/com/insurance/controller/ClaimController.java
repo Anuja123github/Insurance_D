@@ -42,6 +42,7 @@ public class ClaimController {
 			claimService.saveClaim(claim);
 		}
 		return ResponseEntity.ok().body(policy1);
+
 	}
 
 	@DeleteMapping("/delete/{id}")

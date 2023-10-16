@@ -22,6 +22,11 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 	}
 
 	@Override
+	public PremiumDetails updatePremium(PremiumDetails premiumDetails) {
+		PremiumDetails premiumDetails1 = premiumDetailsRepository.save(premiumDetails);
+		return premiumDetails1;
+	}
+
 	public List<PremiumDetails> getAllPremiumDetails() {
 		List<PremiumDetails> premiumDetailsList = premiumDetailsRepository.findAll();
 		return premiumDetailsList;
@@ -30,9 +35,7 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 	@Override
 	public void deletePreimium(Integer id) {
 		premiumDetailsRepository.deleteById(id);
-		
-	}
 
-	
+	}
 
 }

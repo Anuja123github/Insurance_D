@@ -72,5 +72,11 @@ public class UserDetailsController {
 		} else
 			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
 	}
+	@GetMapping("/searchByNameAndEmail")
+	public List<UserDetails> findByFirstNameAndLastNameAndEmail(@RequestParam ("firstname")String firstname,
+			@RequestParam("lastname")String lastname, @RequestParam("email") String email){
+		List<UserDetails> searchDetails = userDetailsService.findByFirstnameAndLastnameAndEmail(firstname, lastname, email);
+		return searchDetails;
+	}
 
 }

@@ -45,6 +45,9 @@ public class PolicyController {
 	}
 
 	@PutMapping("/policy")
+	@ApiOperation(value = "This method is used to update policy details")
+	@ApiResponses(value = {@ApiResponse (code = 200 , message = "Update exitsting policy details ")
+	                       ,@ApiResponse(code = 500, message ="Internal server error")})
 	public ResponseEntity<Policy> updatePolicyDetails(@RequestBody Policy Policy) {
 		// CR-673
 		Policy newPolicy = policyService.updatePolicyDetails(Policy);
@@ -52,6 +55,9 @@ public class PolicyController {
 	}
 
 	@GetMapping("/getPolicyById/{id}")
+	@ApiOperation(value = "This method is used to  get policy details By ID")
+    @ApiResponses(value = {@ApiResponse(code =200 ,message = "get  policy Details" )
+                        ,@ApiResponse(code = 404 ,message = "Not_Found")})
 	public Policy getPolicyById(@PathVariable("id") Integer id) {
 
 		Policy policy = policyService.getPolicyById(id);
@@ -72,6 +78,9 @@ public class PolicyController {
 	}
 
 	@GetMapping("/policy")
+	@ApiOperation(value = "This method is used to  get policy details ")
+    @ApiResponses(value = {@ApiResponse(code =200 ,message = "Get Policy Details" )
+                        ,@ApiResponse(code = 404 ,message = "Not_Found")})
 	public List<Policy> getAllPolicyInformation() {
 		// CR-666
 		List<Policy> policy = policyService.getAllPolicyInformation();
@@ -79,6 +88,9 @@ public class PolicyController {
 	}
 
 	@PostMapping("/savePolicyPremiumDetails")
+	@ApiOperation(value = "This method is used to  Create PolicyPremium details ")
+    @ApiResponses(value = {@ApiResponse(code =200 ,message = "Save PolicyPremium Details" )
+                        ,@ApiResponse(code = 201 ,message = "Created")})
 	public ResponseEntity<Policy> savePolicyPremiumDetails(@RequestBody Policy policy) {
 		Policy policy1 = policyService.savePolicy(policy);
 		List<PremiumDetails> premiumDetailsList = policy.getPremiumDetailsList();
