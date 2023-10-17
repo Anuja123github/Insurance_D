@@ -16,4 +16,6 @@ public interface PolicyService {
 
 	public List<Policy> getAllPolicyInformation();
 
+	public List<Policy> getPolicyByUserId(Integer userId);
+
 }

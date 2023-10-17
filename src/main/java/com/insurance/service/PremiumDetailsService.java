@@ -14,4 +14,6 @@ public interface PremiumDetailsService {
 
 	public void deletePreimium(Integer id);
 
+	public List<PremiumDetails> getPremiumDetailsByPolicyId(Integer policyId);
+
 }

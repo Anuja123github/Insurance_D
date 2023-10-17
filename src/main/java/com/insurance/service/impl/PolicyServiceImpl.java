@@ -49,8 +49,14 @@ public class PolicyServiceImpl implements PolicyService {
 
 	@Override
 	public List<Policy> getAllPolicyInformation() {
-			List<Policy> policy=policyRepository.findAll();
-			return policy;
+		List<Policy> policy = policyRepository.findAll();
+		return policy;
 
-}
+	}
+
+	@Override
+	public List<Policy> getPolicyByUserId(Integer userId) {
+		List<Policy> policies = policyRepository.getPolicyByUserId(userId);
+		return policies;
+	}
 }
