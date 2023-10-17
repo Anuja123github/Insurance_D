@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
 import com.insurance.exception.ResourceNotFoundException;
+import com.insurance.model.Claim;
 import com.insurance.model.UserDetails;
+import com.insurance.service.ClaimService;
 import com.insurance.service.UserDetailsService;
 
 @RestController
@@ -24,6 +26,8 @@ public class UserDetailsController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	@Autowired
+	private ClaimService claimService;
 
 	@PostMapping("/userDetails")
 	public ResponseEntity<UserDetails> addUserDetails(@RequestBody UserDetails userDetails) {
@@ -71,6 +75,21 @@ public class UserDetailsController {
 			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Password updated successfully"));
 		} else
 			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
+	}
+
+	@GetMapping("/getUserDetails/{id}/{claimId}")
+	public ResponseEntity<UserDetails> getUserDetailsById(@PathVariable("id") Integer id, @PathVariable("claimId") Integer claimId) {
+		// get userDetails
+		UserDetails userDetails = userDetailsService.getUserById(id);//1
+		// multiple claim get call method
+		List<Claim> claims = claimService.getClaimList(claimId);
+		for (Claim claim : claims) {
+			userDetails.setId(claim.getUserId());
+			userDetails.setClaimList(claims);
+
+		}
+		return ResponseEntity.ok().body(userDetails);
+
 	}
 
 }

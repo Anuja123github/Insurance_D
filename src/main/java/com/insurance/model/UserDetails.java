@@ -1,9 +1,12 @@
 package com.insurance.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +24,16 @@ public class UserDetails {
 	private String dateofbirth;
 	private String username;
 	private String password;
+	@OneToMany(mappedBy = "userId")
+	private List<Claim> claimList;
+
+	public List<Claim> getClaimList() {
+		return claimList;
+	}
+
+	public void setClaimList(List<Claim> claimList) {
+		this.claimList = claimList;
+	}
 
 	public Integer getId() {
 		return id;

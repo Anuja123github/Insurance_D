@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,6 +67,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	}
 
+	@Transactional
 	@Override
 	public UserDetails getUserById(Integer id) {
 		UserDetails userDetails = userDetailsRepository.findUserDetailsById(id);

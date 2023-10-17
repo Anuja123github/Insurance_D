@@ -17,5 +17,8 @@ public interface UserDetailsService {
 	public UserDetails updateUserPasswordById(Integer id, String password);
 
 	public UserDetails getUserById(Integer id);
+	
+	
+	
 
 }

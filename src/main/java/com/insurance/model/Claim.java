@@ -1,6 +1,8 @@
 
 package com.insurance.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +15,19 @@ public class Claim {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String claimId;
-	private Integer policyId;//fk
+	private Integer claimId;
+	private Integer policyId;// fk
 	private String claimStatus;
 	private String claimAmount;
+	private Integer userId;// fk
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public int getId() {
 		return id;
@@ -26,11 +37,11 @@ public class Claim {
 		this.id = id;
 	}
 
-	public String getClaimId() {
+	public Integer getClaimId() {
 		return claimId;
 	}
 
-	public void setClaimId(String claimId) {
+	public void setClaimId(Integer claimId) {
 		this.claimId = claimId;
 	}
 

@@ -16,4 +16,8 @@ public interface ClaimService {
 	public List<Claim> saveAllClaims(List<Claim> claimlist);
 	
 	public Claim updateClaim(Claim claim);
+	
+	public List<Claim> getClaimList(Integer id);
+	
+	
 }
