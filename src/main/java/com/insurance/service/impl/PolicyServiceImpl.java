@@ -3,6 +3,8 @@ package com.insurance.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,14 @@ public class PolicyServiceImpl implements PolicyService {
 	@Autowired
 	private PolicyRepository policyRepository;
 
+	@Transactional
 	@Override
 	public Policy savePolicy(Policy policy) {
 		Policy newPolicy = policyRepository.save(policy);
 		return newPolicy;
 	}
 
+	@Transactional
 	@Override
 	public Policy updatePolicyDetails(Policy policy) {
 		Policy newPolicy = policyRepository.save(policy);

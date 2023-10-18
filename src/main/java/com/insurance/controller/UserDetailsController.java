@@ -1,7 +1,5 @@
 package com.insurance.controller;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.insurance.dto.ApiResponseDto;
 import com.insurance.exception.ResourceNotFoundException;
 import com.insurance.model.Claim;
-import com.insurance.model.UserDetails;
-import com.insurance.service.ClaimService;
 import com.insurance.model.Policy;
 import com.insurance.model.PremiumDetails;
+import com.insurance.model.UserDetails;
+import com.insurance.service.ClaimService;
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserDetailsService;
 import com.insurance.service.PremiumDetailsService;
@@ -36,13 +34,15 @@ public class UserDetailsController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+
 	@Autowired
-
-	private ClaimService claimService;
-
 	private PolicyService policyService;
+
 	@Autowired
 	private PremiumDetailsService premiumDetailsService;
+
+	@Autowired
+	private ClaimService claimService;
 
 	@PostMapping("/userDetails")
 	@ApiOperation(value = "Request to save user details")
@@ -162,5 +162,22 @@ public class UserDetailsController {
 		}
 		userDetails.setPolicyList(policyList);
 		return ResponseEntity.ok().body(userDetails);
+	}
+
+	@GetMapping("/userDetails/{id}/policies/claims")
+	@ApiOperation(value = "Request to get user details with multiple policies with multiple claim details")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+			@ApiResponse(code = 400, message = "Invalid Request"),
+			@ApiResponse(code = 500, message = "Internal error") })
+	public UserDetails getUserPolicyClaims(@PathVariable("id") Integer id) {
+
+		UserDetails returnedUser = userDetailsService.getUserById(id);
+		List<Policy> policyList = policyService.getPolicyByUserId(id);
+		for (Policy policy : policyList) {
+			List<Claim> claimList = claimService.getClaimsByPolicyId(policy.getId());
+			policy.setClaimlist(claimList);
+		}
+		returnedUser.setPolicyList(policyList);
+		return returnedUser;
 	}
 }

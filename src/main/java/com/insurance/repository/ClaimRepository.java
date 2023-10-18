@@ -11,4 +11,5 @@ import com.insurance.model.Claim;
 public interface ClaimRepository extends JpaRepository<Claim,Integer> {
 	public List<Claim> findByClaimId(Integer id);
 
+	public List<Claim> findByPolicyId(Integer id);
 }

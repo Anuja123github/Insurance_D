@@ -2,6 +2,8 @@ package com.insurance.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,14 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 	@Autowired
 	private PremiumDetailsRepository premiumDetailsRepository;
 
+	@Transactional
 	@Override
 	public PremiumDetails addPremium(PremiumDetails premiumDetails) {
 		PremiumDetails premiumDetails1 = premiumDetailsRepository.save(premiumDetails);
 		return premiumDetails1;
 	}
 
+	@Transactional
 	@Override
 	public PremiumDetails updatePremium(PremiumDetails premiumDetails) {
 		PremiumDetails premiumDetails1 = premiumDetailsRepository.save(premiumDetails);
