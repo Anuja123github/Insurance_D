@@ -171,6 +171,7 @@ public class UserDetailsController {
 			@ApiResponse(code = 500, message = "Internal error") })
 	public UserDetails getUserPolicyClaims(@PathVariable("id") Integer id) {
 
+		// CR-807
 		UserDetails returnedUser = userDetailsService.getUserById(id);
 		List<Policy> policyList = policyService.getPolicyByUserId(id);
 		for (Policy policy : policyList) {
