@@ -17,13 +17,7 @@ public interface UserDetailsService {
 	public UserDetails updateUserPasswordById(Integer id, String password);
 
 	public UserDetails getUserById(Integer id);
-	
-
-	
-	
 
 	List<UserDetails> findByFirstnameAndLastnameAndEmail(String firstname, String lastname, String email);
-
-
 
 }
