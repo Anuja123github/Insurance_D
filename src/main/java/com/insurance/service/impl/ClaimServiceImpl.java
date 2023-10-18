@@ -3,6 +3,8 @@ package com.insurance.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ import com.insurance.service.ClaimService;
 @Service
 public class ClaimServiceImpl implements ClaimService {
 
-	//inject repository
+	// inject repository
 	@Autowired
 	private ClaimRepository claimRepository;
 
@@ -60,4 +62,12 @@ public class ClaimServiceImpl implements ClaimService {
 		List<Claim> claimList = claimRepository.findByPolicyId(id);
 		return claimList;
 	}
+
+	@Transactional
+	@Override
+	public List<Claim> getClaimList(Integer id) {
+		List<Claim> claim = claimRepository.findByClaimId(id);
+		return claim;
+	}
+
 }

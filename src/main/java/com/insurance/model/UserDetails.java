@@ -25,6 +25,17 @@ public class UserDetails {
 	private String username;
 	private String password;
 	@OneToMany(mappedBy = "userId")
+
+	private List<Claim> claimList;
+
+	public List<Claim> getClaimList() {
+		return claimList;
+	}
+
+	public void setClaimList(List<Claim> claimList) {
+		this.claimList = claimList;
+	}
+
 	private List<Policy> policyList;
 
 	public List<Policy> getPolicyList() {
@@ -33,6 +44,7 @@ public class UserDetails {
 
 	public void setPolicyList(List<Policy> policyList) {
 		this.policyList = policyList;
+
 	}
 
 	public Integer getId() {
