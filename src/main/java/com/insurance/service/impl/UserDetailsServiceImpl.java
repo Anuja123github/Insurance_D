@@ -73,4 +73,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		UserDetails userDetails = userDetailsRepository.findUserDetailsById(id);
 		return userDetails;
 	}
+
+	@Override
+	public List<UserDetails> findByFirstnameAndLastnameAndEmail(String firstname, String lastname, String email) {
+		List<UserDetails> findDetails = userDetailsRepository.findByFirstnameAndLastnameAndEmail(firstname, lastname, email);
+		return findDetails;
+	}
+
+	
+
+	
 }

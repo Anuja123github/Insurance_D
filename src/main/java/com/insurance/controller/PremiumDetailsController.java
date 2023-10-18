@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +19,10 @@ import com.insurance.model.PremiumDetails;
 import com.insurance.service.PolicyService;
 import com.insurance.service.PremiumDetailsService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 public class PremiumDetailsController {
 
@@ -28,6 +33,8 @@ public class PremiumDetailsController {
 	private PolicyService policyService;
 
 	@PostMapping("/savePremiumDetails/{id}")
+	@ApiOperation(value= "This method is used to save premium details")
+	@ApiResponses(value= {@ApiResponse(code = 200, message = "ok"),@ApiResponse(code =  404 ,message = "Not_FOund")})
 	public ResponseEntity<PremiumDetails> savePremiumDetailsByPolicyId(@PathVariable("id") Integer id,
 			// CR-785
 			@RequestBody PremiumDetails premiumDetails) {
@@ -42,7 +49,9 @@ public class PremiumDetailsController {
 
 	// CR786
 	@PutMapping("/updatePremiumDetails")
-
+    @ApiOperation(value = "This method is used to update premium details")
+	@ApiResponses(value = {@ApiResponse (code = 200 , message = "Update exitsting premium details with id")
+	                       ,@ApiResponse(code = 500, message ="Internal server error")})
 	public ResponseEntity<Policy> updatePremiumDetails(@RequestBody Policy policy) {
 		Policy policy1 = policyService.updatePolicyDetails(policy);
 		List<PremiumDetails> premiumDetailsList = policy.getPremiumDetailsList();
@@ -53,7 +62,10 @@ public class PremiumDetailsController {
 		return ResponseEntity.ok().body(policy1);
 
 	}
-
+    @GetMapping("/premiumDetails")
+    @ApiOperation(value = "This method is used to get all premium details")
+    @ApiResponses(value = {@ApiResponse(code =200 ,message = "Get All Premium Details" )
+                        ,@ApiResponse(code = 404 ,message = "Not_Found")})
 	public ResponseEntity<List<PremiumDetails>> getAllPremiumDetails() {
 		// CR-787
 		List<PremiumDetails> premiumDetailsList = premiumDetailsService.getAllPremiumDetails();
@@ -61,6 +73,9 @@ public class PremiumDetailsController {
 	}
 
 	@DeleteMapping("deletePriemium/{id}")
+	@ApiOperation(value = "This method is used to  Delete premium details By ID")
+    @ApiResponses(value = {@ApiResponse(code =200 ,message = "Delete Premium Details" )
+                        ,@ApiResponse(code = 404 ,message = "Not_Found")})
     public void deletePremium (@PathVariable ("id") Integer id) {
     	premiumDetailsService.deletePreimium(id);
     }

@@ -18,7 +18,12 @@ public interface UserDetailsService {
 
 	public UserDetails getUserById(Integer id);
 	
+
 	
 	
+
+	List<UserDetails> findByFirstnameAndLastnameAndEmail(String firstname, String lastname, String email);
+
+
 
 }
