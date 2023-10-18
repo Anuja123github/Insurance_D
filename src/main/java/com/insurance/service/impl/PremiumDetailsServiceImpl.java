@@ -42,4 +42,10 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 
 	}
 
+	@Override
+	public List<PremiumDetails> getPremiumDetailsByPolicyId(Integer policyId) {
+		List<PremiumDetails> premiumDetailsList = premiumDetailsRepository.getPremiumDetailsByPolicyId(policyId);
+		return premiumDetailsList;
+	}
+
 }

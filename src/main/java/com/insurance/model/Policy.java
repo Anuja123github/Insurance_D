@@ -21,10 +21,19 @@ public class Policy {
 	private String email;
 	private String claimnumber;
 	private String status;
+	private Integer userId;
 	@OneToMany(mappedBy = "policyId")
 	private List<Claim> claimlist;
 	@OneToMany(mappedBy = "policyId")
 	private List<PremiumDetails> premiumDetailsList;
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public int getId() {
 		return id;

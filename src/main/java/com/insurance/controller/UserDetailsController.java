@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
 import com.insurance.exception.ResourceNotFoundException;
+import com.insurance.model.Policy;
+import com.insurance.model.PremiumDetails;
 import com.insurance.model.UserDetails;
+import com.insurance.service.PolicyService;
 import com.insurance.service.UserDetailsService;
+import com.insurance.service.PremiumDetailsService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -28,6 +32,10 @@ public class UserDetailsController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	@Autowired
+	private PolicyService policyService;
+	@Autowired
+	private PremiumDetailsService premiumDetailsService;
 
 	@PostMapping("/userDetails")
 	@ApiOperation(value = "Request to save user details")
@@ -98,5 +106,22 @@ public class UserDetailsController {
 				email);
 		return searchDetails;
 	}
-
+	
+	@GetMapping("/getuserdetails-policy-premium-by-id/{id}")
+	@ApiOperation(value = "Request to get user details with multiple policies with multiple premium details by user id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
+	public UserDetails getUserPolicyPremiumById(@PathVariable("id") Integer id) {
+		UserDetails userDetails = userDetailsService.getUserById(id);
+		List<Policy> policyList = policyService.getPolicyByUserId(userDetails.getId());
+		for (Policy policy : policyList) {
+			userDetails.setId(policy.getUserId());
+			List<PremiumDetails> premiumList = premiumDetailsService.getPremiumDetailsByPolicyId(policy.getId());
+			for (PremiumDetails premium : premiumList) {
+				policy.setId(premium.getPolicyId());
+			}
+			policy.setPremiumDetailsList(premiumList);
+		}
+		userDetails.setPolicyList(policyList);
+		return userDetails;
+	}
 }
