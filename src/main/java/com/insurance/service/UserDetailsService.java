@@ -19,6 +19,4 @@ public interface UserDetailsService {
 	public UserDetails getUserById(Integer id);
 	
 	public List<UserDetails> findByFirstnameAndLastnameAndEmail(String firstname, String lastname, String email);
-
-	public UserDetails getUserPolicyClaims(Integer id);
 }

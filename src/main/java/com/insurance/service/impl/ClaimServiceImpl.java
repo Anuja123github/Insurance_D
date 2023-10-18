@@ -54,4 +54,10 @@ public class ClaimServiceImpl implements ClaimService {
 		Claim updatedClaim = claimRepository.save(claim);
 		return updatedClaim;
 	}
+
+	@Override
+	public List<Claim> getClaimsByPolicyId(Integer id) {
+		List<Claim> claimList = claimRepository.findByPolicyId(id);
+		return claimList;
+	}
 }

@@ -37,6 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new ArrayList<>();
 	}
 
+	@Override
 	public UserDetails updateUser(UserDetails userDetails) {
 		UserDetails user = userDetailsRepository.save(userDetails);
 		return user;
@@ -73,11 +74,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public List<UserDetails> findByFirstnameAndLastnameAndEmail(String firstname, String lastname, String email) {
-		List<UserDetails> findDetails = userDetailsRepository.findByFirstnameAndLastnameAndEmail(firstname, lastname, email);
+		List<UserDetails> findDetails = userDetailsRepository.findByFirstnameAndLastnameAndEmail(firstname, lastname,
+				email);
 		return findDetails;
 	}
 
-	
-
-	
 }
