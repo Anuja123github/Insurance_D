@@ -110,7 +110,8 @@ public class UserDetailsController {
 	@GetMapping("/getuserdetails-policy-premium-by-id/{id}")
 	@ApiOperation(value = "Request to get user details with multiple policies with multiple premium details by user id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
-	public UserDetails getUserPolicyPremiumById(@PathVariable("id") Integer id) {
+	public ResponseEntity<UserDetails> getUserPolicyPremiumById(@PathVariable("id") Integer id) {
+		//CR-808
 		UserDetails userDetails = userDetailsService.getUserById(id);
 		List<Policy> policyList = policyService.getPolicyByUserId(userDetails.getId());
 		for (Policy policy : policyList) {
@@ -122,6 +123,6 @@ public class UserDetailsController {
 			policy.setPremiumDetailsList(premiumList);
 		}
 		userDetails.setPolicyList(policyList);
-		return userDetails;
+		return ResponseEntity.ok().body(userDetails);
 	}
 }
