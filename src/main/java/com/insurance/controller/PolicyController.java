@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
+import com.insurance.model.Claim;
 import com.insurance.model.Policy;
 import com.insurance.model.PremiumDetails;
+import com.insurance.service.ClaimService;
 import com.insurance.service.PolicyService;
 import com.insurance.service.PremiumDetailsService;
 
@@ -31,6 +33,9 @@ public class PolicyController {
 
 	@Autowired
 	private PremiumDetailsService premiumDetailsService;
+	
+	@Autowired
+	private ClaimService claimService;
 
 	@PostMapping("/policy")
 	@ApiOperation(value = "Request to save Policy which includes Claim list and Premium Details List")
@@ -41,6 +46,16 @@ public class PolicyController {
 	public ResponseEntity<Policy> addPolicy(@RequestBody Policy policy) {
 		// CR-672
 		Policy newPolicy = policyService.savePolicy(policy);
+		List<PremiumDetails> premiumList = policy.getPremiumDetailsList();
+		for (PremiumDetails premiumDetail : premiumList) {
+			premiumDetail.setPolicyId(newPolicy.getId());
+			premiumDetailsService.addPremium(premiumDetail);
+		}
+		List<Claim> claimList = policy.getClaimlist();
+		for (Claim claim : claimList) {
+			claim.setPolicyId(newPolicy.getId());
+			claimService.saveClaim(claim);
+		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(newPolicy);
 	}
 
@@ -51,6 +66,16 @@ public class PolicyController {
 	public ResponseEntity<Policy> updatePolicyDetails(@RequestBody Policy Policy) {
 		// CR-673
 		Policy newPolicy = policyService.updatePolicyDetails(Policy);
+		List<PremiumDetails> premiumList = newPolicy.getPremiumDetailsList();
+		for (PremiumDetails premiumDetail : premiumList) {
+			premiumDetail.setPolicyId(newPolicy.getId());
+			premiumDetailsService.updatePremium(premiumDetail);
+		}
+		List<Claim> claimList = newPolicy.getClaimlist();
+		for (Claim claim : claimList) {
+			claim.setPolicyId(newPolicy.getId());
+			claimService.updateClaim(claim);
+		}
 		return ResponseEntity.status(HttpStatus.OK).body(newPolicy);
 	}
 
@@ -61,7 +86,10 @@ public class PolicyController {
 	public Policy getPolicyById(@PathVariable("id") Integer id) {
 
 		Policy policy = policyService.getPolicyById(id);
-
+		List<PremiumDetails> premiumList = premiumDetailsService.getPremiumDetailsByPolicyId(id);
+		policy.setPremiumDetailsList(premiumList);
+		List<Claim> claimList = claimService.getClaimsByPolicyId(id);
+		policy.setClaimlist(claimList);
 		return policy;
 	}
 

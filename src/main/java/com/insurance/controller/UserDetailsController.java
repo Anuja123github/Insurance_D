@@ -115,21 +115,21 @@ public class UserDetailsController {
 			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
 	}
 
-	@GetMapping("/getUserDetails/{id}/{claimId}")
-	public ResponseEntity<UserDetails> getUserDetailsById(@PathVariable("id") Integer id,
-			@PathVariable("claimId") Integer claimId) {
-		// get userDetails
-		UserDetails userDetails = userDetailsService.getUserById(id);// 1
-		// multiple claim get call method
-		List<Claim> claims = claimService.getClaimList(claimId);
-		for (Claim claim : claims) {
-			userDetails.setId(claim.getUserId());
-			userDetails.setClaimList(claims);
-
-		}
-		return ResponseEntity.ok().body(userDetails);
-
-	}
+//	@GetMapping("/getUserDetails/{id}/{claimId}")
+//	public ResponseEntity<UserDetails> getUserDetailsById(@PathVariable("id") Integer id,
+//			@PathVariable("claimId") Integer claimId) {
+//		// get userDetails
+//		UserDetails userDetails = userDetailsService.getUserById(id);// 1
+//		// multiple claim get call method
+//		List<Claim> claims = claimService.getClaimList(claimId);
+//		for (Claim claim : claims) {
+//			userDetails.setId(claim.getUserId());
+//			userDetails.setClaimList(claims);
+//
+//		}
+//		return ResponseEntity.ok().body(userDetails);
+//
+//	}
 
 	@GetMapping("/searchByNameAndEmail")
 	@ApiOperation(value = "Request to get user details by using firstname,lastname AND email")

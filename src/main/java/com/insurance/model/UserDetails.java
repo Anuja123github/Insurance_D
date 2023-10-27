@@ -26,8 +26,6 @@ public class UserDetails {
 	private String password;
 	@OneToMany(mappedBy = "userId")
 	private List<Policy> policyList;
-	@OneToMany(mappedBy = "userId")
-	private List<Claim> claimList;
 
 	public Integer getId() {
 		return id;
@@ -118,19 +116,12 @@ public class UserDetails {
 
 	}
 
-	public List<Claim> getClaimList() {
-		return claimList;
-	}
-
-	public void setClaimList(List<Claim> claimList) {
-		this.claimList = claimList;
-	}
-
 	@Override
 	public String toString() {
 		return "UserDetails [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", address=" + address
 				+ ", email=" + email + ", userId=" + userId + ", mobilenumber=" + mobilenumber + ", dateofbirth="
-				+ dateofbirth + ", username=" + username + ", password=" + password + "]";
+				+ dateofbirth + ", username=" + username + ", password=" + password + ", policyList=" + policyList
+				+ "]";
 	}
 
 }

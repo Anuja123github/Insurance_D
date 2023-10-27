@@ -29,15 +29,27 @@ public class PolicyServiceImpl implements PolicyService {
 	@Transactional
 	@Override
 	public Policy updatePolicyDetails(Policy policy) {
-		Policy newPolicy = policyRepository.save(policy);
-		return newPolicy;
+		
+		Optional<Policy> returnedOption = policyRepository.findById(policy.getId());
+		if (returnedOption.isPresent()) {
+			Policy newPolicy = policyRepository.save(policy);
+			return newPolicy;			
+		}
+		else {
+			throw new ResourceNotFoundException("No policy found with id: "+policy.getId());
+		}
 	}
 
 	@Override
 	public Policy getPolicyById(Integer id) {
 
-		Policy policy = policyRepository.getPolicyById(id);
-		return policy;
+		Optional<Policy> returnedOption = policyRepository.findById(id);
+		if (returnedOption.isPresent()) {
+			return returnedOption.get();			
+		}
+		else {
+			throw new ResourceNotFoundException("No policy found with id: "+id);
+		}
 	}
 
 	@Override
