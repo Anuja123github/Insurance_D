@@ -38,7 +38,7 @@ public class PolicyController {
 	@Autowired
 	private ClaimService claimService;
 
-	@PostMapping("/policy")
+	@PostMapping("/addPolicy")
 	@ApiOperation(value = "Request to save Policy which includes Claim list and Premium Details List")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created"), 
 			@ApiResponse(code = 400, message = "Invalid Request"),
@@ -60,7 +60,7 @@ public class PolicyController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(newPolicy);
 	}
 
-	@PutMapping("/policy")
+	@PutMapping("/updatePolicy")
 	@ApiOperation(value = "This method is used to update policy details")
 	@ApiResponses(value = {@ApiResponse (code = 200 , message = "Update exitsting policy details ")
 	                       ,@ApiResponse(code = 500, message ="Internal server error")})
@@ -94,7 +94,7 @@ public class PolicyController {
 		return policy;
 	}
 
-	@DeleteMapping("/policy/{id}")
+	@DeleteMapping("/deletePolicy/{id}")
 	@ApiOperation(value = "Request to delete Policy")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), 
 			@ApiResponse(code = 404, message = "Resource not found"),
@@ -106,7 +106,7 @@ public class PolicyController {
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto("Record is deleted."));
 	}
 
-	@GetMapping("/policy")
+	@GetMapping("/getPolicies")
 	@ApiOperation(value = "This method is used to  get policy details ")
     @ApiResponses(value = {@ApiResponse(code =200 ,message = "Get Policy Details" )
                         ,@ApiResponse(code = 404 ,message = "Not_Found")})

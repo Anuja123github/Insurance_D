@@ -1,5 +1,6 @@
 package com.insurance.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,24 +17,20 @@ public class Policy {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String policynumber;
-	private String premiumamount;
-	private String name;
-	private String email;
-	private String claimnumber;
-	private String status;
+	private Date policyEffectiveDate;
+	private Date policyExpiryDate;
+	private String paymentOption;
+	private Double totalAmount;
+	private Boolean status;
+	private Date createdDate;
+	private String additionalInfo;
 	private Integer userId;
+	
 	@OneToMany(mappedBy = "policyId")
 	private List<Claim> claimlist;
+	
 	@OneToMany(mappedBy = "policyId")
 	private List<PremiumDetails> premiumDetailsList;
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
 
 	public int getId() {
 		return id;
@@ -51,52 +48,68 @@ public class Policy {
 		this.policynumber = policynumber;
 	}
 
-	public String getPremiumamount() {
-		return premiumamount;
+	public Date getPolicyEffectiveDate() {
+		return policyEffectiveDate;
 	}
 
-	public void setPremiumamount(String premiumamount) {
-		this.premiumamount = premiumamount;
+	public void setPolicyEffectiveDate(Date policyEffectiveDate) {
+		this.policyEffectiveDate = policyEffectiveDate;
 	}
 
-	public String getName() {
-		return name;
+	public Date getPolicyExpiryDate() {
+		return policyExpiryDate;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPolicyExpiryDate(Date policyExpiryDate) {
+		this.policyExpiryDate = policyExpiryDate;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPaymentOption() {
+		return paymentOption;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPaymentOption(String paymentOption) {
+		this.paymentOption = paymentOption;
 	}
 
-	public String getClaimnumber() {
-		return claimnumber;
+	public Double getTotalAmount() {
+		return totalAmount;
 	}
 
-	public void setClaimnumber(String claimnumber) {
-		this.claimnumber = claimnumber;
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
-	public List<PremiumDetails> getPremiumDetailsList() {
-		return premiumDetailsList;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setPremiumDetailsList(List<PremiumDetails> premiumDetailsList) {
-		this.premiumDetailsList = premiumDetailsList;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public List<Claim> getClaimlist() {
@@ -107,16 +120,20 @@ public class Policy {
 		this.claimlist = claimlist;
 	}
 
-	@Override
-	public String toString() {
-		return "Policy [id=" + id + ", policynumber=" + policynumber + ", premiumamount=" + premiumamount + ", name="
-				+ name + ", email=" + email + ", claimnumber=" + claimnumber + ", status=" + status + ", claimlist="
-				+ claimlist + ", premiumDetailsList=" + premiumDetailsList + ", getId()=" + getId()
-				+ ", getPolicynumber()=" + getPolicynumber() + ", getPremiumamount()=" + getPremiumamount()
-				+ ", getName()=" + getName() + ", getEmail()=" + getEmail() + ", getClaimnumber()=" + getClaimnumber()
-				+ ", getStatus()=" + getStatus() + ", getPremiumDetailsList()=" + getPremiumDetailsList()
-				+ ", getClaimlist()=" + getClaimlist() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+	public List<PremiumDetails> getPremiumDetailsList() {
+		return premiumDetailsList;
 	}
 
+	public void setPremiumDetailsList(List<PremiumDetails> premiumDetailsList) {
+		this.premiumDetailsList = premiumDetailsList;
+	}
+
+	@Override
+	public String toString() {
+		return "Policy [id=" + id + ", policynumber=" + policynumber + ", policyEffectiveDate=" + policyEffectiveDate
+				+ ", policyExpiryDate=" + policyExpiryDate + ", paymentOption=" + paymentOption + ", totalAmount="
+				+ totalAmount + ", status=" + status + ", createdDate=" + createdDate + ", additionalInfo="
+				+ additionalInfo + ", userId=" + userId + ", claimlist=" + claimlist + ", premiumDetailsList="
+				+ premiumDetailsList + "]";
+	}
 }
