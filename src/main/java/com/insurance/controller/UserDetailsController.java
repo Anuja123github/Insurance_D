@@ -62,10 +62,11 @@ public class UserDetailsController {
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<List<UserDetails>> getAllUserDetails(
 			@RequestParam(defaultValue = "1", name = "page") int pageNo,
-			@RequestParam(defaultValue = "15", name = "records") int pageSize) {
+			@RequestParam(defaultValue = "15", name = "records") int pageSize,
+			@RequestParam(defaultValue = "claimId", name = "sort") String sortBy) {
 
 		pageNo = (pageNo > 0) ? pageNo - 1 : 0;
-		List<UserDetails> userDetailsList = userDetailsService.getAllUsers(pageNo, pageSize);
+		List<UserDetails> userDetailsList = userDetailsService.getAllUsers(pageNo, pageSize, sortBy);
 		return ResponseEntity.status(HttpStatus.OK).body(userDetailsList);
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
@@ -109,9 +110,13 @@ public class PolicyController {
 	@ApiOperation(value = "This method is used to  get policy details ")
     @ApiResponses(value = {@ApiResponse(code =200 ,message = "Get Policy Details" )
                         ,@ApiResponse(code = 404 ,message = "Not_Found")})
-	public List<Policy> getAllPolicyInformation() {
+	public List<Policy> getAllPolicyInformation(@RequestParam(defaultValue = "1", value = "page") int pageNo,
+			@RequestParam(defaultValue = "10", name = "records") int pageSize,
+			@RequestParam(defaultValue = "name", name = "sort") String sortBy) {
+		// CR-831
+		pageNo = pageNo > 0 ? pageNo -1 : 0;
 		// CR-666
-		List<Policy> policy = policyService.getAllPolicyInformation();
+		List<Policy> policy = policyService.getAllPolicyInformation(pageNo, pageSize, sortBy);
 		return policy;
 	}
 

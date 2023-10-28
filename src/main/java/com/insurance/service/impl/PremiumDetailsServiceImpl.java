@@ -1,10 +1,15 @@
 package com.insurance.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.insurance.model.PremiumDetails;
@@ -31,9 +36,15 @@ public class PremiumDetailsServiceImpl implements PremiumDetailsService {
 		return premiumDetails1;
 	}
 
-	public List<PremiumDetails> getAllPremiumDetails() {
-		List<PremiumDetails> premiumDetailsList = premiumDetailsRepository.findAll();
-		return premiumDetailsList;
+	public List<PremiumDetails> getAllPremiumDetails(int pageNo, int pageSize, String sortBy) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<PremiumDetails> premiumPage = premiumDetailsRepository.findAll(pageable);
+		if (premiumPage.hasContent()) {
+			return premiumPage.getContent();
+		}
+		else {
+			return new ArrayList<PremiumDetails>();
+		}
 	}
 
 	@Override

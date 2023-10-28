@@ -1,11 +1,16 @@
 package com.insurance.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.insurance.exception.ResourceNotFoundException;
@@ -64,9 +69,16 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public List<Policy> getAllPolicyInformation() {
-		List<Policy> policy = policyRepository.findAll();
-		return policy;
+	public List<Policy> getAllPolicyInformation(int pageNo, int pageSize, String sortBy) {
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<Policy> policyPage = policyRepository.findAll(pageable);
+		if (policyPage.hasContent()) {
+			return policyPage.getContent();
+		}
+		else {
+			return new ArrayList<Policy>();
+		}
 
 	}
 
