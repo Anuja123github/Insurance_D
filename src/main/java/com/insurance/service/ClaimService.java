@@ -10,7 +10,7 @@ public interface ClaimService {
 
 	public void deleteClaimById(Integer id);
 
-	public List<Claim> getAllClaimsList();
+	public List<Claim> getAllClaimsList(int pageNo, int pageSize, String sortBy);
 
 	public List<Claim> saveAllClaims(List<Claim> claimlist);
 

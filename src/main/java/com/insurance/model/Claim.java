@@ -1,8 +1,6 @@
 
 package com.insurance.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,15 +17,6 @@ public class Claim {
 	private Integer policyId;// fk
 	private String claimStatus;
 	private String claimAmount;
-	private Integer userId;// fk
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
 
 	public int getId() {
 		return id;

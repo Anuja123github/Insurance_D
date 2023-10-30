@@ -62,10 +62,11 @@ public class UserDetailsController {
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<List<UserDetails>> getAllUserDetails(
 			@RequestParam(defaultValue = "1", name = "page") int pageNo,
-			@RequestParam(defaultValue = "15", name = "records") int pageSize) {
+			@RequestParam(defaultValue = "15", name = "records") int pageSize,
+			@RequestParam(defaultValue = "claimId", name = "sort") String sortBy) {
 
 		pageNo = (pageNo > 0) ? pageNo - 1 : 0;
-		List<UserDetails> userDetailsList = userDetailsService.getAllUsers(pageNo, pageSize);
+		List<UserDetails> userDetailsList = userDetailsService.getAllUsers(pageNo, pageSize, sortBy);
 		return ResponseEntity.status(HttpStatus.OK).body(userDetailsList);
 	}
 
@@ -115,21 +116,21 @@ public class UserDetailsController {
 			throw new ResourceNotFoundException("No UserDetails found with id: " + id);
 	}
 
-	@GetMapping("/getUserDetails/{id}/{claimId}")
-	public ResponseEntity<UserDetails> getUserDetailsById(@PathVariable("id") Integer id,
-			@PathVariable("claimId") Integer claimId) {
-		// get userDetails
-		UserDetails userDetails = userDetailsService.getUserById(id);// 1
-		// multiple claim get call method
-		List<Claim> claims = claimService.getClaimList(claimId);
-		for (Claim claim : claims) {
-			userDetails.setId(claim.getUserId());
-			userDetails.setClaimList(claims);
-
-		}
-		return ResponseEntity.ok().body(userDetails);
-
-	}
+//	@GetMapping("/getUserDetails/{id}/{claimId}")
+//	public ResponseEntity<UserDetails> getUserDetailsById(@PathVariable("id") Integer id,
+//			@PathVariable("claimId") Integer claimId) {
+//		// get userDetails
+//		UserDetails userDetails = userDetailsService.getUserById(id);// 1
+//		// multiple claim get call method
+//		List<Claim> claims = claimService.getClaimList(claimId);
+//		for (Claim claim : claims) {
+//			userDetails.setId(claim.getUserId());
+//			userDetails.setClaimList(claims);
+//
+//		}
+//		return ResponseEntity.ok().body(userDetails);
+//
+//	}
 
 	@GetMapping("/searchByNameAndEmail")
 	@ApiOperation(value = "Request to get user details by using firstname,lastname AND email")
@@ -171,6 +172,7 @@ public class UserDetailsController {
 			@ApiResponse(code = 500, message = "Internal error") })
 	public UserDetails getUserPolicyClaims(@PathVariable("id") Integer id) {
 
+		// CR-807
 		UserDetails returnedUser = userDetailsService.getUserById(id);
 		List<Policy> policyList = policyService.getPolicyByUserId(id);
 		for (Policy policy : policyList) {
