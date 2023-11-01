@@ -14,7 +14,7 @@ public interface PolicyService {
 
 	public void deletePolicy(Integer id);
 
-	public List<Policy> getAllPolicyInformation();
+	public List<Policy> getAllPolicyInformation(int pageNo, int pageSize, String sortBy);
 
 	public List<Policy> getPolicyByUserId(Integer userId);
 

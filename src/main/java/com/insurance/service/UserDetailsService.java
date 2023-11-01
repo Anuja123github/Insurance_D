@@ -8,7 +8,7 @@ public interface UserDetailsService {
 
 	public UserDetails addUserDetails(UserDetails userDetails);
 
-	public List<UserDetails> getAllUsers(int pageNo, int pageSize);
+	public List<UserDetails> getAllUsers(int pageNo, int pageSize, String sortBy);
 
 	public UserDetails updateUser(UserDetails userDetails);
 

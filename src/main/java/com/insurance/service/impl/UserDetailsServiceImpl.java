@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.insurance.exception.ResourceNotFoundException;
@@ -29,9 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	@Override
-	public List<UserDetails> getAllUsers(int pageNo, int pageSize) {
+	public List<UserDetails> getAllUsers(int pageNo, int pageSize, String sortBy) {
 
-		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 		Page<UserDetails> usersPage = userDetailsRepository.findAll(pageable);
 		if (usersPage.hasContent()) {
 			return usersPage.getContent();

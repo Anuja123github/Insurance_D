@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.exception.ResourceNotFoundException;
@@ -66,9 +67,12 @@ public class PremiumDetailsController {
     @ApiOperation(value = "This method is used to get all premium details")
     @ApiResponses(value = {@ApiResponse(code =200 ,message = "Get All Premium Details" )
                         ,@ApiResponse(code = 404 ,message = "Not_Found")})
-	public ResponseEntity<List<PremiumDetails>> getAllPremiumDetails() {
+	public ResponseEntity<List<PremiumDetails>> getAllPremiumDetails(@RequestParam(defaultValue = "10", name = "page") int pageNo,
+			@RequestParam(defaultValue = "10", name = "records") int pageSize,
+			@RequestParam(defaultValue = "PremiumId", name = "sort") String sortBy) {
+    	pageNo = pageNo > 0 ? pageNo -1 : 0;
 		// CR-787
-		List<PremiumDetails> premiumDetailsList = premiumDetailsService.getAllPremiumDetails();
+		List<PremiumDetails> premiumDetailsList = premiumDetailsService.getAllPremiumDetails(pageNo, pageSize, sortBy);
 		return ResponseEntity.status(HttpStatus.OK).body(premiumDetailsList);
 	}
 

@@ -10,10 +10,9 @@ public interface PremiumDetailsService {
 
 	public PremiumDetails updatePremium(PremiumDetails premiumDetails);
 
-	public List<PremiumDetails> getAllPremiumDetails();
+	public List<PremiumDetails> getAllPremiumDetails(int pageNo, int pageSize, String sortBy);
 
 	public void deletePreimium(Integer id);
 
 	public List<PremiumDetails> getPremiumDetailsByPolicyId(Integer policyId);
-
 }

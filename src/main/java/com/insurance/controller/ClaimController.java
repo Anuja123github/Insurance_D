@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dto.ApiResponseDto;
@@ -61,9 +62,12 @@ public class ClaimController {
 	@GetMapping("/get-all-claim-list")
 	@ApiOperation(value = "Request to update claim")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),@ApiResponse(code = 400, message = "Invalid Request"),@ApiResponse(code = 500, message = "Internal Error") })
-	public ResponseEntity<List<Claim>> getClaimList() {
+	public ResponseEntity<List<Claim>> getClaimList(@RequestParam(defaultValue = "1", name = "page") int pageNo,
+			@RequestParam(defaultValue = "10", name = "records") int pageSize,
+			@RequestParam(defaultValue = "claimId", name = "sort") String sortBy) {
+		pageNo = pageNo > 0 ? pageNo -1 : 0;
 		// CR-772
-		List<Claim> claimList = claimService.getAllClaimsList();
+		List<Claim> claimList = claimService.getAllClaimsList(pageNo, pageSize, sortBy);
 		return ResponseEntity.status(HttpStatus.OK).body(claimList);
 	}
 
