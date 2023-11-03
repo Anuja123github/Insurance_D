@@ -57,7 +57,7 @@ public class UserDetailsController {
 
 	@GetMapping("/userDetails")
 	@ApiOperation(value = "Request to get all user details ")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<List<UserDetails>> getAllUserDetails(
@@ -72,7 +72,7 @@ public class UserDetailsController {
 
 	@GetMapping("/userDetails/{id}")
 	@ApiOperation(value = "Request to get user details using id ")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<UserDetails> getUserById(@PathVariable("id") Integer id) {
@@ -83,7 +83,7 @@ public class UserDetailsController {
 
 	@PutMapping("/userUpdate")
 	@ApiOperation(value = "Request to update user details")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public UserDetails updateUser(@RequestBody UserDetails userDetails) {
@@ -93,7 +93,7 @@ public class UserDetailsController {
 
 	@DeleteMapping("/userDetails/{id}")
 	@ApiOperation(value = "Request to delete user details by using id")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<ApiResponseDto> deleteUserDetails(@PathVariable("id") int id) {
@@ -104,7 +104,7 @@ public class UserDetailsController {
 
 	@GetMapping("/updateUserPasswordById")
 	@ApiOperation(value = "Request to update user details password by using id")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<ApiResponseDto> updateUserPasswordById(@RequestParam("id") Integer id,
@@ -134,7 +134,7 @@ public class UserDetailsController {
 
 	@GetMapping("/searchByNameAndEmail")
 	@ApiOperation(value = "Request to get user details by using firstname,lastname AND email")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public List<UserDetails> findByFirstNameAndLastNameAndEmail(@RequestParam("firstname") String firstname,
@@ -146,7 +146,7 @@ public class UserDetailsController {
 
 	@GetMapping("/getuserdetails-policy-premium-by-id/{id}")
 	@ApiOperation(value = "Request to get user details with multiple policies with multiple premium details by user id")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal Error") })
 	public ResponseEntity<UserDetails> getUserPolicyPremiumById(@PathVariable("id") Integer id) {
@@ -167,7 +167,7 @@ public class UserDetailsController {
 
 	@GetMapping("/userDetails/{id}/policies/claims")
 	@ApiOperation(value = "Request to get user details with multiple policies with multiple claim details")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"),
 			@ApiResponse(code = 400, message = "Invalid Request"),
 			@ApiResponse(code = 500, message = "Internal error") })
 	public UserDetails getUserPolicyClaims(@PathVariable("id") Integer id) {
